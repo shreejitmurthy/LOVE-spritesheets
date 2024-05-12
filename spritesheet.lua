@@ -66,5 +66,3 @@ end
 function Spritesheet:draw(animation, x, y)
     love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y)
 end
-
-return Spritesheet
