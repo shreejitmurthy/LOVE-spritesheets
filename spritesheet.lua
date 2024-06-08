@@ -63,6 +63,10 @@ function Animation:update(dt)
         end
     end
 end
-function Spritesheet:draw(animation, x, y)
+function Spritesheet:draw(animation, x, y, debug)
     love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y)
+    if debug then
+        love.graphics.rectangle("line", x, y, self.frameWidth, self.frameHeight)
+        love.graphics.print(tostring(animation.currentIndex), x + self.frameWidth + 3, y)
+    end
 end
