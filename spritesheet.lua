@@ -40,12 +40,14 @@ end
 ---@param spritesheet_path love.Image
 ---@param frameWidth integer
 ---@param frameHeight integer
-function newSpritesheet(spritesheet_path, frameWidth, frameHeight)
+function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
     local self = setmetatable({}, Spritesheet)
     self.path = spritesheet_path
     self.image = love.graphics.newImage(self.path)
     self.frameWidth = frameWidth
     self.frameHeight = frameHeight
+    self.left = left
+    self.top = top
     self.frames = {}
     self.delay = 0
     return self
@@ -56,11 +58,11 @@ function Spritesheet:getFrames(sx, sy, fx, fy)
     for y = sy, fy do
         for x = sx, fx do
             local quad = love.graphics.newQuad(
-                (x - 1) * self.frameWidth,   -- x position in the spritesheet
-                (y - 1) * self.frameHeight,  -- y position in the spritesheet
-                self.frameWidth,             -- width of the frame
-                self.frameHeight,            -- height of the frame
-                self.image:getDimensions()   -- total dimensions of the spritesheet
+                ((x - 1) * self.frameWidth) + self.left,
+                ((y - 1) * self.frameHeight) + self.top,
+                self.frameWidth,
+                self.frameHeight,
+                self.image:getDimensions()
             )
             frames[#frames+1] = quad
         end
