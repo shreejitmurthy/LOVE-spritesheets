@@ -42,8 +42,8 @@ end
 ---@param frameHeight integer
 function newSpritesheet(spritesheet_path, frameWidth, frameHeight)
     local self = setmetatable({}, Spritesheet)
-    local path = spritesheet_path
-    self.image = love.graphics.newImage(path)
+    self.path = spritesheet_path
+    self.image = love.graphics.newImage(self.path)
     self.frameWidth = frameWidth
     self.frameHeight = frameHeight
     self.frames = {}
@@ -70,6 +70,9 @@ function Spritesheet:getFrames(sx, sy, fx, fy)
 end
 
 function Spritesheet:newAnimation(s, f, delay)
+    if not delay then
+        error("No delay value given to animation (" .. self.path .. ")")
+    end
     local sx, sy = unpack(s)
     local fx, fy = unpack(f)
     local frames = self:getFrames(sy, sx, fy + 1, fx)
