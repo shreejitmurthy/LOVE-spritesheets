@@ -37,7 +37,7 @@ function Animation.new(frames, delay)
     }, Animation)
 end
 
----@param spritesheet_path love.Image
+---@param spritesheet_path string
 ---@param frameWidth integer
 ---@param frameHeight integer
 function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
@@ -48,8 +48,6 @@ function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
     self.frameHeight = frameHeight
     self.left = left
     self.top = top
-    self.frames = {}
-    self.delay = 0
     return self
 end
 
