@@ -46,8 +46,8 @@ function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
     self.image = love.graphics.newImage(self.path)
     self.frameWidth = frameWidth
     self.frameHeight = frameHeight
-    self.left = left
-    self.top = top
+    self.left = left or 0
+    self.top = top or 0
     return self
 end
 
@@ -75,7 +75,7 @@ function Spritesheet:newAnimation(s, f, delay)
     end
     local sx, sy = unpack(s)
     local fx, fy = unpack(f)
-    local frames = self:getFrames(sy, sx, fy + 1, fx)
+    local frames = self:getFrames(sy, sx, fy, fx)
 
     return Animation.new(frames, delay)
 end
@@ -90,10 +90,14 @@ function Animation:update(dt)
         end
     end
 end
+
 function Spritesheet:draw(animation, x, y, debug)
-    love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y)
+    love.graphics.push()
+    love.graphics.translate(-(self.frameWidth / 2), -(self.frameHeight / 2))
+    love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y, nil, nil)
     if debug then
         love.graphics.rectangle("line", x, y, self.frameWidth, self.frameHeight)
         love.graphics.print(tostring(animation.currentIndex), x + self.frameWidth + 3, y)
     end
+    love.graphics.pop()
 end
