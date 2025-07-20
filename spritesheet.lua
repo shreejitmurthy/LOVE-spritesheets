@@ -33,7 +33,8 @@ function Animation.new(frames, delay)
         frames = frames,
         delay = delay,
         currentTime = 0,
-        currentIndex = 1
+        currentIndex = 1,
+        flipv = 1,
     }, Animation)
 end
 
@@ -91,10 +92,14 @@ function Animation:update(dt)
     end
 end
 
+function Animation:flipV(n)
+    self.flipv = n
+end
+
 function Spritesheet:draw(animation, x, y, debug)
     love.graphics.push()
     love.graphics.translate(-(self.frameWidth / 2), -(self.frameHeight / 2))
-    love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y, nil, nil)
+    love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y, nil, self.flipV)
     if debug then
         love.graphics.rectangle("line", x, y, self.frameWidth, self.frameHeight)
         love.graphics.print(tostring(animation.currentIndex), x + self.frameWidth + 3, y)
