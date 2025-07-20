@@ -51,8 +51,6 @@ function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
     self.image = love.graphics.newImage(self.path)
     self.frameWidth = frameWidth
     self.frameHeight = frameHeight
-    self.left = left or 0
-    self.top = top or 0
     return self
 end
 
@@ -61,8 +59,8 @@ function Spritesheet:getFrames(sx, sy, fx, fy)
     for y = sy, fy do
         for x = sx, fx do
             local quad = love.graphics.newQuad(
-                ((x - 1) * self.frameWidth) + self.left,
-                ((y - 1) * self.frameHeight) + self.top,
+                ((x - 1) * self.frameWidth),
+                ((y - 1) * self.frameHeight),
                 self.frameWidth,
                 self.frameHeight,
                 self.image:getDimensions()
