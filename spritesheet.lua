@@ -72,7 +72,7 @@ function Spritesheet:getFrames(sx, sy, fx, fy)
     return frames
 end
 
-function Spritesheet:newAnimation(s, f, delay)
+function Spritesheet:newAnimation(s, f, delay, left, top, loop)
     if not delay then
         error("No delay value given to animation (" .. self.path .. ")")
     end
@@ -80,7 +80,7 @@ function Spritesheet:newAnimation(s, f, delay)
     local fx, fy = unpack(f)
     local frames = self:getFrames(sy, sx, fy, fx)
 
-    return Animation.new(frames, delay)
+    return Animation.new(frames, delay, left, top, loop)
 end
 
 function Animation:update(dt)
