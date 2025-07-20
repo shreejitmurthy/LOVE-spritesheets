@@ -45,7 +45,7 @@ end
 ---@param spritesheet_path string
 ---@param frameWidth integer
 ---@param frameHeight integer
-function newSpritesheet(spritesheet_path, frameWidth, frameHeight, left, top)
+function newSpritesheet(spritesheet_path, frameWidth, frameHeight)
     local self = setmetatable({}, Spritesheet)
     self.path = spritesheet_path
     self.image = love.graphics.newImage(self.path)
