@@ -28,13 +28,17 @@ Spritesheet.__index = Spritesheet
 local Animation = {}
 Animation.__index = Animation
 
-function Animation.new(frames, delay)
+function Animation.new(frames, delay, left, top, loop)
     return setmetatable({
         frames = frames,
         delay = delay,
+        top = top or 0,
+        left = left or 0,
+        flipv = 1,
+        r = 0,
         currentTime = 0,
         currentIndex = 1,
-        flipv = 1,
+        loop = loop or true,
     }, Animation)
 end
 
@@ -96,10 +100,16 @@ function Animation:flipV(n)
     self.flipv = n
 end
 
+function Animation:rotate(r)
+    self.r = r
+end
+
 function Spritesheet:draw(animation, x, y, debug)
+    local quad = animation.frames[animation.currentIndex]
+    ox, oy = self.frameHeight / 2, self.frameHeight / 2
     love.graphics.push()
-    love.graphics.translate(-(self.frameWidth / 2), -(self.frameHeight / 2))
-    love.graphics.draw(self.image, animation.frames[animation.currentIndex], x, y, nil, self.flipV)
+    love.graphics.translate(animation.left, -animation.top)
+    love.graphics.draw(self.image, quad, x, y, self.r, animation.flipv, 1, ox, oy)
     if debug then
         love.graphics.rectangle("line", x, y, self.frameWidth, self.frameHeight)
         love.graphics.print(tostring(animation.currentIndex), x + self.frameWidth + 3, y)
