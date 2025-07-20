@@ -1,5 +1,5 @@
 # LOVE-spritesheets
-Similar to my other love2d animation library but basically better in every way. I still use that other script a bunch though, it's best for quick prototyping, this is similar to anim8 but current missing a few features (left, top, border).
+Similar to my other love2d animation library but basically better in every way. I still use that other script a bunch though, it's best for quick prototyping, this is similar to anim8.
 
 The script uses an almost coordinate based system, where you input the coordinates you want it to go through and it just does it.
 ## Usage
@@ -7,8 +7,12 @@ The script uses an almost coordinate based system, where you input the coordinat
 require "spritesheet"
 
 function love.load()
+    --args: path, frame width, frame height
     mySpritesheet = newSpritesheet("resources/player.png", 64, 64)
-    -- args: start frame, end frame, delay
+    -- args: 
+    --      start frame (table), end frame (table), 
+    --      delay (num), left (num), top (num), 
+    --      loop (bool)
     local up = mySpritesheet:newAnimation({1, 2}, {2, 8}, 0.5) 
     current_animation = up
 end
